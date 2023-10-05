@@ -304,6 +304,15 @@ Exemplo:
 
 #include <stdio.h>
 
+int contarAlgarismos(long numero) {
+    int contador = 0;
+    while (numero != 0) {
+        numero /= 10;
+        contador++;
+    }
+    return contador;
+}
+
 int main() {
     int vetorInt[3];
     long vetorLong[3];
@@ -331,8 +340,14 @@ int main() {
     printf("%10d%10d%10d%10d%10d\n", 10, 20, 30, 40, 50);
     printf("12345678901234567890123456789012345678901234567890\n\n");
     for (int i = 0; i < 3; i++) {
-        printf("%3d%20ld%20u\n", vetorInt[i], vetorLong[i], vetorUnsigned[i]);
-        printf("%16.2f%20.2lf\n", vetorFloat[i], vetorDouble[i]);
+        int larguraInt = contarAlgarismos(vetorInt[i]);
+        int larguraLong = contarAlgarismos(vetorLong[i]);
+        int larguraUnsigned = contarAlgarismos(vetorUnsigned[i]);
+        int larguraFloat = contarAlgarismos(vetorFloat[i]) + 2;
+        int larguraDouble = contarAlgarismos(vetorDouble[i]) + 2;
+
+        printf("%*d%*ld%*u\n", larguraInt + 2, vetorInt[i], larguraLong + 20 - larguraInt, vetorLong[i], larguraUnsigned + 20 - larguraLong, vetorUnsigned[i]);
+        printf("%*.2f%*.2lf\n", larguraFloat + 13,  vetorFloat[i], larguraDouble + 20 - larguraFloat, vetorDouble[i]);
     }
 
     printf("\nDigite X para sair  \n");
